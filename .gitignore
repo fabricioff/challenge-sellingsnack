@@ -1,0 +1,16 @@
+.metadata/
+Servers/
+
+sellingsnack/.project
+sellingsnack/.settings/
+
+sellingsnack/sellingsnack-model/.classpath
+sellingsnack/sellingsnack-model/.gitignore
+sellingsnack/sellingsnack-model/.project
+sellingsnack/sellingsnack-model/.settings/
+
+sellingsnack/sellingsnack-ws/.classpath
+sellingsnack/sellingsnack-ws/.gitignore
+sellingsnack/sellingsnack-ws/.project
+sellingsnack/sellingsnack-ws/.settings/
+
