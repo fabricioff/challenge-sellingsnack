@@ -14,5 +14,5 @@ sellingsnack/sellingsnack-ws/.gitignore
 sellingsnack/sellingsnack-ws/.project
 sellingsnack/sellingsnack-ws/.settings/
 
-sellingsnack/sellingsnack-client/.node_modules
+sellingsnack/sellingsnack-angular/.node_modules
 
