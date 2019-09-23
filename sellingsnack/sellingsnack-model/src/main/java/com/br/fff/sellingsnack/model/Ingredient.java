@@ -2,23 +2,23 @@ package com.br.fff.sellingsnack.model;
 
 import java.io.Serializable;
 
-public class Ingredient implements Serializable{
-	
+public class Ingredient implements Serializable {
+
 	private static final long serialVersionUID = 8497252623470212625L;
-	
+
 	private Integer id;
 	private String name;
-	private Float value;
-	
+	private Float price;
+
 	public Ingredient() {
-		super();	
+		super();
 	}
 
-	public Ingredient(Integer id, String name, Float value) {
+	public Ingredient(Integer id, String name, Float price) {
 		super();
 		this.id = id;
 		this.name = name;
-		this.value = value;
+		this.price = price;
 	}
 
 	public Integer getId() {
@@ -32,17 +32,17 @@ public class Ingredient implements Serializable{
 	public String getName() {
 		return name;
 	}
-	
+
 	public void setName(String name) {
 		this.name = name;
 	}
-	
-	public Float getValue() {
-		return value;
+
+	public Float getPrice() {
+		return price;
 	}
-	
-	public void setValue(Float value) {
-		this.value = value;
+
+	public void setPrice(Float price) {
+		this.price = price;
 	}
 
 	@Override
@@ -51,7 +51,7 @@ public class Ingredient implements Serializable{
 		int result = 1;
 		result = prime * result + ((id == null) ? 0 : id.hashCode());
 		result = prime * result + ((name == null) ? 0 : name.hashCode());
-		result = prime * result + ((value == null) ? 0 : value.hashCode());
+		result = prime * result + ((price == null) ? 0 : price.hashCode());
 		return result;
 	}
 
@@ -74,17 +74,17 @@ public class Ingredient implements Serializable{
 				return false;
 		} else if (!name.equals(other.name))
 			return false;
-		if (value == null) {
-			if (other.value != null)
+		if (price == null) {
+			if (other.price != null)
 				return false;
-		} else if (!value.equals(other.value))
+		} else if (!price.equals(other.price))
 			return false;
 		return true;
 	}
 
 	@Override
 	public String toString() {
-		return "Ingredient [id=" + id + ", name=" + name + ", value=" + value + "]";
+		return "Ingredient [id=" + id + ", name=" + name + ", price=" + price + "]";
 	}
-	
+
 }

@@ -6,12 +6,21 @@ import { HttpClient } from '@angular/common/http';//'selenium-webdriver/http';
 })
 export class SnackService {
 
-  snacksUrl = 'http://localhost:8080/sellingsnack-ws/snack/';
+  WebServiceUrl = 'http://localhost:8080/sellingsnack-ws';
+  snacksUrl = `${this.WebServiceUrl}/snack`;
+  ingredientskUrl = `${this.snacksUrl}/find`;
 
   constructor(private http: HttpClient) { }
 
   listar() {
     return this.http.get<any[]>(`${this.snacksUrl}`);
+  }
+
+  getIngredients(snackName: string) {
+    const urlFind = `${this.ingredientskUrl}/${snackName}`;
+    console.log(`Searching: ${snackName}`);
+    console.log(urlFind);
+    return this.http.get<any[]>(urlFind);
   }
 
 }
