@@ -6,27 +6,27 @@ import { HttpClient } from '@angular/common/http';//'selenium-webdriver/http';
 })
 export class SnackService {
 
-  WebServiceUrl = 'http://localhost:8080/sellingsnack-ws';
-  snacksNamesUrl = `${this.WebServiceUrl}/snack`;
-  findSnackObjectkUrl = `${this.snacksNamesUrl}/find`;
-  promotionsUrl = `${this.WebServiceUrl}/promotion`;
+  BASE_ENDPOINT = 'http://localhost:8080/sellingsnack-ws';
+  SNACK_NAME_ENDPOINT = `${this.BASE_ENDPOINT}/snack`;
+  FIND_SNACK_ENDPOINT = `${this.SNACK_NAME_ENDPOINT}/find`;
+  SALE_ENDPOINT = `${this.BASE_ENDPOINT}/sale`;
 
   constructor(private http: HttpClient) { }
 
   getSnacksNames() {
-    return this.http.get<any[]>(`${this.snacksNamesUrl}`);
+    return this.http.get<any[]>(`${this.SNACK_NAME_ENDPOINT}`);
   }
 
   getSnack(snackName: string) {
-    const urlFind = `${this.findSnackObjectkUrl}/${snackName}`;
+    const urlFind = `${this.FIND_SNACK_ENDPOINT}/${snackName}`;
     console.log(`Searching: ${snackName}`);
     console.log(urlFind);
 
     return this.http.get<any>(urlFind);
   }
 
-  getPromotions() {
-    return this.http.get<any[]>(this.promotionsUrl);
+  getSales() {
+    return this.http.get<any[]>(this.SALE_ENDPOINT);
   }
 
 }

@@ -1,0 +1,26 @@
+.remove-top-title {
+  margin-top:0em;
+}
+
+.remove-botton-title {
+  margin-bottom:0em;
+}
+
+.snack-select:hover {
+  background-color: #1976d2;
+  color: white;
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.label-name {
+  display:block;
+}
+
+.label-info {
+  display:block;
+  padding-bottom: 10px;
+}
+
+
+

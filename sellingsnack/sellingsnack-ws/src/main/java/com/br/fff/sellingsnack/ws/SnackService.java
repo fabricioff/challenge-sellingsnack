@@ -16,14 +16,18 @@ import javax.ws.rs.WebApplicationException;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
+//import com.owlike.genson.Genson;
+//import com.owlike.genson.GensonBuilder;
+import com.google.gson.Gson;
+
 import com.br.fff.sellingsnack.model.Snack;
-import com.owlike.genson.Genson;
-import com.owlike.genson.GensonBuilder;
+
 
 @Path("/snack")
 public class SnackService {
 
-	private final static Genson GENSON = new GensonBuilder().create();
+	//private final static Genson GENSON = new GensonBuilder().create();
+	private final static Gson gson = new Gson();
 
 	private Snack findById(int id) {
 		Snack snack = null;
@@ -41,13 +45,6 @@ public class SnackService {
 
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
-	@Path("/{snackId}")
-	public Snack getSnack(@PathParam("snackId") int id) {
-		return findById(id);
-	}
-
-	@GET
-	@Produces(MediaType.APPLICATION_JSON)
 	public Response list() {
 		List<String> snacks = new LinkedList<>();
 
@@ -55,9 +52,12 @@ public class SnackService {
 			snacks.add(entry.getKey());
 		}
 
-		return Response.ok(snacks).build();
+		String jsonString = gson.toJson(snacks);
+		System.out.println(jsonString);
+		
+		return Response.ok(jsonString).build();
 	}
-
+	
 	@GET
 	@Path("/find/{name}")
 	@Produces(MediaType.APPLICATION_JSON)
@@ -67,19 +67,18 @@ public class SnackService {
 			throw new WebApplicationException(404);
 		}
 
-		return Response.ok(GENSON.serialize(snack)).build();
+		String jsonString = gson.toJson(snack);
+		System.out.println(jsonString);
+		
+		//return Response.ok(GENSON.serialize(snack)).build();
+		return Response.ok(jsonString).build();
 	}
-
-	@POST
-	@Consumes(MediaType.APPLICATION_JSON)
+	
+	@GET
 	@Produces(MediaType.APPLICATION_JSON)
-	public Response add(Snack snack) {
-		if (snack != null) {
-			snack.setId(DataInMemory.SNACKS_BY_ID.size());
-			DataInMemory.SNACKS_BY_ID.put(snack.getId(), snack);
-			DataInMemory.SNACKS_BY_NAME.put(snack.getName(), snack);
-		}
-		return Response.ok(GENSON.serialize(snack)).build();
+	@Path("/{snackId}")
+	public Snack getSnack(@PathParam("snackId") int id) {
+		return findById(id);
 	}
 
 	@PUT
@@ -94,7 +93,10 @@ public class SnackService {
 		DataInMemory.SNACKS_BY_ID.put(snackFound.getId(), snackFound);
 		DataInMemory.SNACKS_BY_NAME.put(snackFound.getName(), snack);
 
-		return Response.ok(GENSON.serialize(snackFound)).build();
+		String jsonString = gson.toJson(snackFound);//GENSON.serialize(snackFound)
+		System.out.println(jsonString);
+		
+		return Response.ok(jsonString).build();
 	}
 
 	@DELETE
@@ -105,6 +107,22 @@ public class SnackService {
 		DataInMemory.SNACKS_BY_NAME.remove(snackFound.getName());
 
 		return Response.ok().build();
+	}
+	
+	@POST
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response add(Snack snack) {
+		if (snack != null) {
+			snack.setId(DataInMemory.SNACKS_BY_ID.size());
+			DataInMemory.SNACKS_BY_ID.put(snack.getId(), snack);
+			DataInMemory.SNACKS_BY_NAME.put(snack.getName(), snack);
+		}
+		
+		String jsonString = gson.toJson(snack); //GENSON.serialize(snack)
+		System.out.println(jsonString);
+		
+		return Response.ok(jsonString).build();
 	}
 
 }

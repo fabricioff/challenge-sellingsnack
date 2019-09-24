@@ -13,7 +13,7 @@ import java.util.List;
  *
  */
 
-public class Promotion implements Serializable {
+public class Sale implements Serializable {
 
 	private static final long serialVersionUID = 7390415536671066862L;
 
@@ -21,12 +21,14 @@ public class Promotion implements Serializable {
 	private String name;
 	private List<Condition> conditions = new LinkedList<Condition>();
 	private Float deduction;
+	private TypeDeduction typeDeduction;
 
-	private Promotion(Builder builder) {
+	private Sale(Builder builder) {
 		this.id = builder.id;
 		this.name = builder.name;
 		this.conditions = builder.conditions;
 		this.deduction = builder.deduction;
+		this.typeDeduction = builder.typeDeduction;
 	}
 
 	public static class Builder {
@@ -34,6 +36,7 @@ public class Promotion implements Serializable {
 		private String name;
 		private List<Condition> conditions = new LinkedList<Condition>();
 		private Float deduction;
+		private TypeDeduction typeDeduction;
 
 		public Builder id(Integer id) {
 			this.id = id;
@@ -55,8 +58,13 @@ public class Promotion implements Serializable {
 			return this;
 		}
 		
-		public Promotion build() {
-			return new Promotion(this);
+		public Builder typeDeduction(TypeDeduction typeDeduction) {
+			this.typeDeduction = typeDeduction;
+			return this;
+		}
+		
+		public Sale build() {
+			return new Sale(this);
 		}
 	}
 
@@ -75,6 +83,10 @@ public class Promotion implements Serializable {
 	public Float getDeduction() {
 		return deduction;
 	}
+	
+	public TypeDeduction getTypeDeduction() {
+		return typeDeduction;
+	}
 
 	@Override
 	public int hashCode() {
@@ -84,6 +96,7 @@ public class Promotion implements Serializable {
 		result = prime * result + ((id == null) ? 0 : id.hashCode());
 		result = prime * result + ((conditions == null) ? 0 : conditions.hashCode());
 		result = prime * result + ((name == null) ? 0 : name.hashCode());
+		result = prime * result + ((typeDeduction == null) ? 0 : typeDeduction.hashCode());
 		return result;
 	}
 
@@ -95,11 +108,16 @@ public class Promotion implements Serializable {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		Promotion other = (Promotion) obj;
+		Sale other = (Sale) obj;
 		if (deduction == null) {
 			if (other.deduction != null)
 				return false;
 		} else if (!deduction.equals(other.deduction))
+			return false;
+		if (typeDeduction == null) {
+			if (other.typeDeduction != null)
+				return false;
+		} else if (!typeDeduction.equals(other.typeDeduction))
 			return false;
 		if (id == null) {
 			if (other.id != null)
@@ -121,8 +139,8 @@ public class Promotion implements Serializable {
 
 	@Override
 	public String toString() {
-		return "Promotion [id=" + id + ", name=" + name + ", conditions=" + conditions + ", deduction=" + deduction
-				+ "]";
+		return "Sale [id=" + id + ", name=" + name + ", conditions=" + conditions + ", deduction=" + deduction 
+				+ ", typeDeduction=" + typeDeduction + "]";
 	}
 
 }

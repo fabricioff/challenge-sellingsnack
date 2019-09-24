@@ -1,24 +1,48 @@
-<h2>Listagem</h2>
-
-<ul>
-    <li *ngFor="let name of snacksNames" (click)="onSelect(name)">
-        {{name}}
-    </li>    
-</ul>
-
-<div *ngIf="snacksSelected != null">
-    <h2>Ingredientes do Lanche: {{snacksSelected.name}}</h2>
-    <ul>
-        <li *ngFor="let ingredient of ingredients">
-            {{ingredient.name}}: R$ {{ingredient.price}}
-        </li>
-    </ul>
-    <h3>Total do Lanche: {{priceSnack}}</h3>
-</div>
-
 <h2>Promoções disponíveis</h2>
 <ul>
-    <li *ngFor="let promotion of promotions">
-        {{promotion.name}}: ({{promotion.deduction}}%)
+    <li *ngFor="let sale of sales">
+      <label class="label-name">Nome: <b>{{sale.name}}</b></label>
+      <label class="label-info">Descrição: ({{sale.deduction * 100}}% de desconto no(s) {{sale.deductionType}})</label>
     </li>
 </ul>
+
+<h2 class="remove-botton-title">Lanches disponíveis</h2>
+<h4 class="remove-top-title">(Clique no lanche para ver detalhes)</h4>
+<ul>
+    <li *ngFor="let name of snacksNames" (click)="onSelect(name)" class="snack-select">
+        {{name}}
+    </li>
+</ul>
+
+<div *ngIf="snacksSelected != null" class=".w3-container">
+  <h2><label>Ingredientes do Lanche:</label> <label style="padding-left: 10px;">{{snacksSelected.name}}</label></h2>
+  <ul>
+      <li *ngFor="let ingredient of ingredients">
+        <label class="label-name">{{ingredient.name}}:</label>
+        <label class="label-info">R$ {{ingredient.price | number : '1.2'}}</label>
+      </li>
+  </ul>
+
+  <div style="margin-left: 10px">
+    <h3>Calculando valor total (R$)</h3>
+    <table>
+      <tr>
+        <td style="padding-right: 10px;"><b>DESCRIÇÃO</b></td>
+        <td><b>VALOR</b></td>
+      </tr>
+      <tr>
+        <td style="padding-right: 10px;">Soma dos ingredientes:</td>
+        <td>R$ {{priceSnack | number : '1.2'}}</td>
+      </tr>
+      <tr>
+        <td style="padding-right: 10px;">Desconto promocional:</td>
+        <td>R$ {{deductionSnack | number : '1.2'}}</td>
+      </tr>
+      <tr>
+        <td style="padding-right: 10px;">Total à pagar:</td>
+        <td style="font-size: 20px;"> <b style="color: red">R$ {{(payment) | number : '1.2'}}</b></td>
+      </tr>
+    </table>
+  </div>
+</div>
+

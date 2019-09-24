@@ -58,16 +58,15 @@
 		</dependency>
 
 		<!-- <dependency>
-			<groupId>org.glassfish.extras</groupId>
-			<artifactId>glassfish-embedded-web</artifactId>
-			<version>${glassfish.version}</version>
-			<scope>test</scope>
-		</dependency>  -->
-		
-		<dependency>
 			<groupId>com.owlike</groupId>
 			<artifactId>genson</artifactId>
 			<version>1.6</version>
+		</dependency> -->
+		
+		<dependency>
+			<groupId>com.google.code.gson</groupId>
+			<artifactId>gson</artifactId>
+			<version>${gson.version}</version>
 		</dependency>
 
 	</dependencies>
@@ -82,6 +81,22 @@
 				<configuration>
 					<source>${java.version}</source>
 					<target>${java.version}</target>
+				</configuration>
+			</plugin>
+
+			<plugin>
+				<artifactId>maven-clean-plugin</artifactId>
+				<version>3.1.0</version>
+				<configuration>
+					<filesets>
+						<fileset>
+							<directory>../tools/dev/apache-tomcat-9.0.24/webapps/${project.path}</directory>							
+							<includes>
+								<include>**</include>
+							</includes>
+							<followSymlinks>false</followSymlinks>
+						</fileset>
+					</filesets>
 				</configuration>
 			</plugin>
 			
@@ -102,7 +117,7 @@
 					<webappDirectory>../tools/dev/apache-tomcat-9.0.24/webapps/${project.path}</webappDirectory>
 				</configuration>
 			</plugin>
-			
+
 		</plugins>
 	</build>
 

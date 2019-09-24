@@ -11,11 +11,10 @@ export class Snack  {
         this.ingredients = ingredients;
     }
 
-    static parse(json) {
+    static parse(data) {
         console.log('Snack Parsing....');
         const ingredientList: Array<Ingredient> = new Array<Ingredient>();
 
-        const data = JSON.parse(json);
         console.log(data);
 
         data.ingredients.forEach((i: any) => {
