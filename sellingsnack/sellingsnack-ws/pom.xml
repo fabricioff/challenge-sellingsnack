@@ -18,7 +18,7 @@
 	<name>sellingsnack-ws Jersey Webapp</name>
 
 	<properties>
-		<!-- <jersey.version>1.20-SNAPSHOT</jersey.version> -->
+		<project.path>sellingsnack-ws</project.path>
 		<jersey.version>1.19.4</jersey.version>
 		<glassfish.version>3.1.1</glassfish.version>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -57,12 +57,12 @@
 			<scope>test</scope>
 		</dependency>
 
-		<dependency>
+		<!-- <dependency>
 			<groupId>org.glassfish.extras</groupId>
 			<artifactId>glassfish-embedded-web</artifactId>
 			<version>${glassfish.version}</version>
 			<scope>test</scope>
-		</dependency>
+		</dependency>  -->
 		
 		<dependency>
 			<groupId>com.owlike</groupId>
@@ -80,37 +80,29 @@
 				<artifactId>maven-compiler-plugin</artifactId>
 				<inherited>true</inherited>
 				<configuration>
-					<source>1.6</source>
-					<target>1.6</target>
+					<source>${java.version}</source>
+					<target>${java.version}</target>
 				</configuration>
 			</plugin>
-
+			
 			<plugin>
-				<groupId>org.glassfish</groupId>
-				<artifactId>maven-embedded-glassfish-plugin</artifactId>
-				<version>${glassfish.version}</version>
-
-				<dependencies>
-					<dependency>
-						<groupId>com.sun.jersey</groupId>
-						<artifactId>jersey-servlet</artifactId>
-						<version>${project.version}</version>
-					</dependency>
-
-					<dependency>
-						<groupId>javax.servlet</groupId>
-						<artifactId>javax.servlet-api</artifactId>
-						<version>3.0.1</version>
-					</dependency>
-				</dependencies>
-
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-war-plugin</artifactId>
 				<configuration>
-					<goalPrefix>embedded-glassfish</goalPrefix>
-					<app>C:/Workspace/challenge-sellingsnack/sellingsnack/target/${project.build.finalName}.war</app>
-					<autoDelete>true</autoDelete>
-					<port>8080</port>
+					<webResources>
+						<webResource>
+							<directory>${basedir}/src/main/webapp/WEB-INF</directory>
+							<includes>
+								<include>*.xml</include>
+							</includes>
+							<targetPath>WEB-INF</targetPath>
+							<filtering>true</filtering>
+						</webResource>
+					</webResources>
+					<webappDirectory>../tools/dev/apache-tomcat-9.0.24/webapps/${project.path}</webappDirectory>
 				</configuration>
 			</plugin>
+			
 		</plugins>
 	</build>
 

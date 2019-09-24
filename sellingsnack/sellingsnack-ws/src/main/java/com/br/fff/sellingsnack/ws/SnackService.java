@@ -28,12 +28,12 @@ public class SnackService {
 	private Snack findById(int id) {
 		Snack snack = null;
 		try {
-			snack = SnackData.SNACKS_BY_ID.get(id);
+			snack = DataInMemory.SNACKS_BY_ID.get(id);
 			if (snack == null) {
 				throw new WebApplicationException(404);
 			}
 		} catch (Exception e) {
-			// TODO: Implementer LOG4J
+			// TODO: To implement LOG4J
 			throw new WebApplicationException(500);
 		}
 		return snack;
@@ -51,7 +51,7 @@ public class SnackService {
 	public Response list() {
 		List<String> snacks = new LinkedList<>();
 
-		for (Entry<String, Snack> entry : SnackData.SNACKS_BY_NAME.entrySet()) {
+		for (Entry<String, Snack> entry : DataInMemory.SNACKS_BY_NAME.entrySet()) {
 			snacks.add(entry.getKey());
 		}
 
@@ -62,7 +62,7 @@ public class SnackService {
 	@Path("/find/{name}")
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response getSnackByName(@PathParam("name") String name) {
-		Snack snack = SnackData.SNACKS_BY_NAME.get(name);
+		Snack snack = DataInMemory.SNACKS_BY_NAME.get(name);
 		if (snack == null) {
 			throw new WebApplicationException(404);
 		}
@@ -75,9 +75,9 @@ public class SnackService {
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response add(Snack snack) {
 		if (snack != null) {
-			snack.setId(SnackData.SNACKS_BY_ID.size());
-			SnackData.SNACKS_BY_ID.put(snack.getId(), snack);
-			SnackData.SNACKS_BY_NAME.put(snack.getName(), snack);
+			snack.setId(DataInMemory.SNACKS_BY_ID.size());
+			DataInMemory.SNACKS_BY_ID.put(snack.getId(), snack);
+			DataInMemory.SNACKS_BY_NAME.put(snack.getName(), snack);
 		}
 		return Response.ok(GENSON.serialize(snack)).build();
 	}
@@ -87,12 +87,12 @@ public class SnackService {
 	@Consumes(MediaType.APPLICATION_JSON)
 	public Response update(@PathParam("id") int id, Snack snack) {
 		Snack snackFound = findById(id);
-		SnackData.SNACKS_BY_NAME.remove(snackFound.getName());
+		DataInMemory.SNACKS_BY_NAME.remove(snackFound.getName());
 
 		snackFound.setName(snack.getName());
 		snackFound.setIngredients(snack.getIngredients());
-		SnackData.SNACKS_BY_ID.put(snackFound.getId(), snackFound);
-		SnackData.SNACKS_BY_NAME.put(snackFound.getName(), snack);
+		DataInMemory.SNACKS_BY_ID.put(snackFound.getId(), snackFound);
+		DataInMemory.SNACKS_BY_NAME.put(snackFound.getName(), snack);
 
 		return Response.ok(GENSON.serialize(snackFound)).build();
 	}
@@ -101,8 +101,8 @@ public class SnackService {
 	@Path("/{id}")
 	public Response delete(@PathParam("id") int id) {
 		Snack snackFound = findById(id);
-		SnackData.SNACKS_BY_ID.remove(snackFound.getId());
-		SnackData.SNACKS_BY_NAME.remove(snackFound.getName());
+		DataInMemory.SNACKS_BY_ID.remove(snackFound.getId());
+		DataInMemory.SNACKS_BY_NAME.remove(snackFound.getName());
 
 		return Response.ok().build();
 	}

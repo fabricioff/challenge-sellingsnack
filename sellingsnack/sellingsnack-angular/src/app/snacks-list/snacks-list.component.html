@@ -1,9 +1,24 @@
 <h2>Listagem</h2>
 
 <ul>
-    <li *ngFor="let snack of snacks" (click)="onSelect(snack)">
-        {{snack}}
+    <li *ngFor="let name of snacksNames" (click)="onSelect(name)">
+        {{name}}
     </li>    
 </ul>
 
-<span>{{selectedSnack}}</span>
+<div *ngIf="snacksSelected != null">
+    <h2>Ingredientes do Lanche: {{snacksSelected.name}}</h2>
+    <ul>
+        <li *ngFor="let ingredient of ingredients">
+            {{ingredient.name}}: R$ {{ingredient.price}}
+        </li>
+    </ul>
+    <h3>Total do Lanche: {{priceSnack}}</h3>
+</div>
+
+<h2>Promoções disponíveis</h2>
+<ul>
+    <li *ngFor="let promotion of promotions">
+        {{promotion.name}}: ({{promotion.deduction}}%)
+    </li>
+</ul>

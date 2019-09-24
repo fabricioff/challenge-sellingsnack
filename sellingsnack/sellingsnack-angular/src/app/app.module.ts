@@ -4,7 +4,7 @@ import { HttpClientModule } from '@angular/common/http'
 
 import { AppComponent } from './app.component';
 import { SnacksListComponent } from './snacks-list/snacks-list.component';
-import { SnackService } from './snack.service'
+import { SnackService } from './services/snack.service'
 
 @NgModule({
   declarations: [

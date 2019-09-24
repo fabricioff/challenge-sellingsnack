@@ -1,18 +1,39 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-  <modelVersion>4.0.0</modelVersion>
-  
-  <groupId>com.br.fff</groupId>
-  <artifactId>sellingsnack</artifactId>
-  <version>1.0</version>
-  <packaging>pom</packaging>
-  <name>SellingSnack</name>
-  <description>Web applicati
-	sell snacks</description>
-  
-  <modules>
-    <module>sellingsnack-model</module>
-    <module>sellingsnack-ws</module>
-  </modules>
-  
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<groupId>com.br.fff</groupId>
+	<artifactId>sellingsnack</artifactId>
+	<version>1.0</version>
+	<packaging>pom</packaging>
+	<name>SellingSnack</name>
+	<description>Web applicati to sell snacks</description>
+
+	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>		
+		<java.version>1.8</java.version>		
+		<org.apache.maven.plugins.compiler.version>3.0</org.apache.maven.plugins.compiler.version>
+	</properties>
+	
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<version>3.0</version>
+				<configuration>
+					<source>${java.version}</source>
+					<target>${java.version}</target>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
+
+	<modules>
+		<module>sellingsnack-model</module>
+		<module>sellingsnack-ws</module>
+	</modules>
+
 </project>

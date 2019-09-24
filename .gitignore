@@ -16,3 +16,6 @@ sellingsnack/sellingsnack-ws/.settings/
 
 sellingsnack/sellingsnack-angular/.node_modules
 
+sellingsnack/tools/dev/apache-tomcat-9.0.24/logs
+sellingsnack/tools/dev/apache-tomcat-9.0.24/work
+sellingsnack/tools/dev/apache-tomcat-9.0.24/webapps/sellingsnack
