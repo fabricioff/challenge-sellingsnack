@@ -65,20 +65,22 @@ export class SnacksListComponent implements OnInit {
   verifySale() {
     let verifiedDeduction = 0;
     ///*Buscando por promoção...
-    this.sales.filter( sale => {
-      sale.condictions.filter((condition) => {
-        let contConditionsFound = 0;
-        this.snacksSelected.ingredients.forEach((i) => {
+    this.sales.forEach((sale) => {
+      sale.condictions.forEach((condition) => {
+        let count = 0;
+        let ingredientsFound = this.snacksSelected.ingredients.filter((i) => {
           if (condition.ingredient.name === i.name) {
-            contConditionsFound++;
-          } else {
-            contConditionsFound = 0;
+            console.log(`Encontrou o ingrediente: ${i.name}`);
+            count++;
+            if (count === condition.amountIngredient) {
+              console.log(`Atende a promoção: ${sale.name}`);
+
+            }
+            return true;
           }
+          return false;
         });
 
-        if (condition.amountIngredient === contConditionsFound) {
-          console.log(`Atende a promoção: ${sale.name}`);
-        }
       });
     });
 

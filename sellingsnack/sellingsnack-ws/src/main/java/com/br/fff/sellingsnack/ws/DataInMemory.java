@@ -93,14 +93,14 @@ public class DataInMemory {
 		
 		Snack xSnackOnSale = new Snack();
 		xSnackOnSale.setId(5);
-		xSnackOnSale.setName("X-Big Bacon");
+		xSnackOnSale.setName("X-Fome");
 		xSnackOnSale.getIngredients().add(ovo);
 		xSnackOnSale.getIngredients().add(bacon);
-		xSnackOnSale.getIngredients().add(bacon);
-		xSnackOnSale.getIngredients().add(bacon);
+		xSnackOnSale.getIngredients().add(hamburgerCarne);
+		xSnackOnSale.getIngredients().add(hamburgerCarne);
 		xSnackOnSale.getIngredients().add(hamburgerCarne);
 		xSnackOnSale.getIngredients().add(queijo);
-		SNACKS_BY_ID.put(xSnackOnSale.getId(), xEggBacon);
-		SNACKS_BY_NAME.put(xSnackOnSale.getName(), xEggBacon);
+		SNACKS_BY_ID.put(xSnackOnSale.getId(), xSnackOnSale);
+		SNACKS_BY_NAME.put(xSnackOnSale.getName(), xSnackOnSale);
 	}
 }
