@@ -1,4 +1,4 @@
-# Selling Sancks
+# Selling Snacks
 
 ### URL para lista de lanches
 http://localhost:8080/sellingsnack-ws/snack
