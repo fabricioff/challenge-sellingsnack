@@ -11,7 +11,7 @@
   <ul>
       <li *ngFor="let ingredient of snackIngredients">
         <label class="label-name">{{ingredient.name}}:</label>
-        <label class="label-info">R$ {{ingredient.price | number : '1.2'}}</label>
+        <label class="label-info">R$ {{ingredient.price | number : '1.2-2'}}</label>
       </li>
   </ul>
 
@@ -24,15 +24,15 @@
       </tr>
       <tr>
         <td style="padding-right: 10px;">Soma dos ingredientes:</td>
-        <td>R$ {{priceSnack | number : '1.2'}}</td>
+        <td>R$ {{priceSnack | number : '1.2-2'}}</td>
       </tr>
       <tr>
         <td style="padding-right: 10px;">Desconto promocional:</td>
-        <td>R$ {{deductionSnack | number : '1.2'}}</td>
+        <td>R$ {{deductionSnack | number : '1.2-2'}}</td>
       </tr>
       <tr>
         <td style="padding-right: 10px;">Total à pagar:</td>
-        <td style="font-size: 20px;"> <b style="color: red">R$ {{(payment) | number : '1.2'}}</b></td>
+        <td style="font-size: 20px;"> <b style="color: red">R$ {{(payment) | number : '1.2-2'}}</b></td>
       </tr>
     </table>
   </div>
