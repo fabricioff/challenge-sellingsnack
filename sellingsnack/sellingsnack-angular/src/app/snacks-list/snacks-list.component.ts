@@ -3,6 +3,7 @@ import { SnackService } from '../services/snack.service';
 import { Snack } from '../models/Snack.model';
 import { Ingredient } from '../models/Ingredient.model';
 import { Sale } from '../models/Sale.model';
+import { TypeDeduction } from '../models/TypeDeduction.model';
 
 
 @Component({
@@ -15,15 +16,18 @@ export class SnacksListComponent implements OnInit {
   snacksNames: Array<string> = new Array<string>();
   snacksSelected: Snack;
   priceSnack: number;
-  ingredients: Array<Ingredient> = new Array<Ingredient>();
+  allIngredients: Array<Ingredient> = new Array<Ingredient>();
+  snackIngredients: Array<Ingredient> = new Array<Ingredient>();
   sales: Array<Sale> = new Array<Sale>();
   deductionSnack: number;
-  payment: number = 0;
+  payment: number;
+  snackIsSale: boolean;
 
   constructor(private snackService: SnackService) { }
 
   ngOnInit() {
     this.listSnacksNames();
+    this.listIngredients();
     this.listSales();
   }
 
@@ -33,6 +37,16 @@ export class SnacksListComponent implements OnInit {
         this.snacksNames = data;
         console.log(`Snacks Names:`);
         console.log(this.snacksNames);
+      });
+  }
+
+  listIngredients() {
+    this.snackService.getIngredientes()
+      .subscribe(data => {
+        data.forEach((i: any) => {
+          const ingredient: Ingredient = Ingredient.parse(i);
+          this.allIngredients.push(ingredient);
+        });
       });
   }
 
@@ -55,7 +69,7 @@ export class SnacksListComponent implements OnInit {
 
   calcTotalSnack() {
     this.priceSnack = 0;
-    this.ingredients.forEach((i: Ingredient) => {
+    this.snackIngredients.forEach((i: Ingredient) => {
       console.log(i.price);
       this.priceSnack += i.price;
     });
@@ -63,30 +77,34 @@ export class SnacksListComponent implements OnInit {
   }
 
   verifySale() {
-    let verifiedDeduction = 0;
-    ///*Buscando por promoção...
+    this.payment = 0;
+    this.deductionSnack = 0;
+    this.snackIsSale = false;
+    //Buscando por promoção...
     this.sales.forEach((sale) => {
       sale.condictions.forEach((condition) => {
         let count = 0;
-        let ingredientsFound = this.snacksSelected.ingredients.filter((i) => {
+        this.snacksSelected.ingredients.filter((i) => {
           if (condition.ingredient.name === i.name) {
             console.log(`Encontrou o ingrediente: ${i.name}`);
             count++;
             if (count === condition.amountIngredient) {
               console.log(`Atende a promoção: ${sale.name}`);
-
+              if (sale.deductionType === TypeDeduction.INGREDIENT) {
+                this.deductionSnack = (i.price * condition.amountIngredient) * sale.deduction;
+              } else if (sale.deductionType === TypeDeduction.SNACK) {
+                this.deductionSnack = this.priceSnack * sale.deduction;
+              }
+              this.snackIsSale = true;
             }
             return true;
           }
           return false;
         });
-
       });
     });
 
-    //--*/
-
-    this.payment = this.priceSnack - verifiedDeduction;
+    this.payment = this.priceSnack - this.deductionSnack;
   }
 
   onSelect(snackName: string): void {
@@ -96,8 +114,8 @@ export class SnacksListComponent implements OnInit {
         console.log(data);
 
         this.snacksSelected = Snack.parse(data);
-        this.ingredients = this.snacksSelected.ingredients;
-        console.log(this.ingredients);
+        this.snackIngredients = this.snacksSelected.ingredients;
+        console.log(this.snackIngredients);
 
         this.calcTotalSnack();
         this.verifySale();

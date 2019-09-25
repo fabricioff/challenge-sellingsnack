@@ -13,9 +13,11 @@ import com.br.fff.sellingsnack.model.TypeDeduction;
 
 public class DataInMemory {
 
+	
 	public final static Map<Integer, Snack> SNACKS_BY_ID = new LinkedHashMap<Integer, Snack>();
 	public final static Map<String, Snack> SNACKS_BY_NAME = new LinkedHashMap<String, Snack>();
 	public final static List<Sale> SALES = new LinkedList<Sale>();
+	public final static List<Ingredient> INGREDIENTS = new LinkedList<Ingredient>();
 	
 	/************************************************************************************************************************************************
 		PROMOÇÃO 		REGRA DE NEGÓCIO	
@@ -26,13 +28,19 @@ public class DataInMemory {
 	*************************************************************************************************************************************************/
 	
 	static {
-		Ingredient ovo = new Ingredient(5, "Ovo", 0.80f);
 		Ingredient bacon = new Ingredient(1, "Bacon", 2.00f);
+		Ingredient hamburgerCarne = new Ingredient(2, "Hamburguer de carne", 3.00f);
 		Ingredient queijo = new Ingredient(3, "Queijo", 1.50f);
 		Ingredient alface = new Ingredient(4, "Alface", 0.40f);
-		Ingredient hamburgerCarne = new Ingredient(2, "Hamburguer de carne", 3.00f);
+		Ingredient ovo = new Ingredient(5, "Ovo", 0.80f);
+		INGREDIENTS.add(bacon);
+		INGREDIENTS.add(hamburgerCarne);
+		INGREDIENTS.add(queijo);
+		INGREDIENTS.add(alface);
+		INGREDIENTS.add(ovo);
 		
 		Sale ligth = new Sale.Builder().id(1).name("Ligth")
+				.description("Se o lanche tem alface e não tem bacon, ganha 10% de desconto")
 				.addCondition(new Condition(alface, 1))
 				.addCondition(new Condition(bacon, 0))
 				.deduction(0.1f)
@@ -41,15 +49,17 @@ public class DataInMemory {
 		SALES.add(ligth);
 		
 		Sale muchMeat = new Sale.Builder().id(2).name("Muita carne")
+				.description("A cada 3 porções de carne o cliente só paga 2. Se o lanche tiver 6 porções, ocliente pagará 4. Assim por diante")
 				.addCondition(new Condition(hamburgerCarne, 3))
-				.deduction(0.67f)
+				.deduction(0.3335f)
 				.typeDeduction(TypeDeduction.INGREDIENT)
 				.build();
 		SALES.add(muchMeat);
 		
 		Sale muchCheese = new Sale.Builder().id(3).name("Muito queijo")
+				.description("A cada 3 porções de queijo o cliente só paga 2. Se o lanche tiver 6 porções, ocliente pagará 4. Assim por diante")
 				.addCondition(new Condition(queijo, 3))
-				.deduction(0.67f)
+				.deduction(0.3335f)
 				.typeDeduction(TypeDeduction.INGREDIENT)
 				.build();
 		SALES.add(muchCheese);
@@ -91,16 +101,25 @@ public class DataInMemory {
 		SNACKS_BY_NAME.put(xEggBacon.getName(), xEggBacon);
 		
 		
-		Snack xSnackOnSale = new Snack();
-		xSnackOnSale.setId(5);
-		xSnackOnSale.setName("X-Fome");
-		xSnackOnSale.getIngredients().add(ovo);
-		xSnackOnSale.getIngredients().add(bacon);
-		xSnackOnSale.getIngredients().add(hamburgerCarne);
-		xSnackOnSale.getIngredients().add(hamburgerCarne);
-		xSnackOnSale.getIngredients().add(hamburgerCarne);
-		xSnackOnSale.getIngredients().add(queijo);
-		SNACKS_BY_ID.put(xSnackOnSale.getId(), xSnackOnSale);
-		SNACKS_BY_NAME.put(xSnackOnSale.getName(), xSnackOnSale);
+		Snack xMuchMeat = new Snack();
+		xMuchMeat.setId(5);
+		xMuchMeat.setName("X-Carnivoro");
+		xMuchMeat.getIngredients().add(ovo);
+		xMuchMeat.getIngredients().add(bacon);
+		xMuchMeat.getIngredients().add(hamburgerCarne);
+		xMuchMeat.getIngredients().add(hamburgerCarne);
+		xMuchMeat.getIngredients().add(hamburgerCarne);
+		xMuchMeat.getIngredients().add(queijo);
+		SNACKS_BY_ID.put(xMuchMeat.getId(), xMuchMeat);
+		SNACKS_BY_NAME.put(xMuchMeat.getName(), xMuchMeat);
+		
+		Snack xLigth = new Snack();
+		xLigth.setId(5);
+		xLigth.setName("X-Salada");
+		xLigth.getIngredients().add(alface);
+		xLigth.getIngredients().add(hamburgerCarne);
+		xLigth.getIngredients().add(queijo);
+		SNACKS_BY_ID.put(xLigth.getId(), xLigth);
+		SNACKS_BY_NAME.put(xLigth.getName(), xLigth);
 	}
 }

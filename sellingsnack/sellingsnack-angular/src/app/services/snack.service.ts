@@ -9,6 +9,7 @@ export class SnackService {
   BASE_ENDPOINT = 'http://localhost:8080/sellingsnack-ws';
   SNACK_NAME_ENDPOINT = `${this.BASE_ENDPOINT}/snack`;
   FIND_SNACK_ENDPOINT = `${this.SNACK_NAME_ENDPOINT}/find`;
+  INGREDIENT_ENDPOINT = `${this.BASE_ENDPOINT}/ingredient`;
   SALE_ENDPOINT = `${this.BASE_ENDPOINT}/sale`;
 
   constructor(private http: HttpClient) { }
@@ -27,6 +28,10 @@ export class SnackService {
 
   getSales() {
     return this.http.get<any[]>(this.SALE_ENDPOINT);
+  }
+
+  getIngredientes() {
+    return this.http.get<any[]>(this.INGREDIENT_ENDPOINT);
   }
 
 }

@@ -15,7 +15,7 @@
 	<artifactId>sellingsnack-ws</artifactId>
 	<version>1.0</version>
 	<packaging>war</packaging>
-	<name>sellingsnack-ws Jersey Webapp</name>
+	<name>sellingsnack-ws</name>
 
 	<properties>
 		<project.path>sellingsnack-ws</project.path>

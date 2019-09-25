@@ -1,4 +1,4 @@
 export enum TypeDeduction {
-  INGREDIENT = 'Ingrediente',
-  SNACK = 'Lanche'
+  INGREDIENT = 'INGREDIENT',
+  SNACK = 'SNACK'
 }

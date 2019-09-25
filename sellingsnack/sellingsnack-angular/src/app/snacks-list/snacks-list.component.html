@@ -1,11 +1,3 @@
-<h2>Promoções disponíveis</h2>
-<ul>
-    <li *ngFor="let sale of sales">
-      <label class="label-name">Nome: <b>{{sale.name}}</b></label>
-      <label class="label-info">Descrição: ({{sale.deduction * 100}}% de desconto no(s) {{sale.deductionType}})</label>
-    </li>
-</ul>
-
 <h2 class="remove-botton-title">Lanches disponíveis</h2>
 <h4 class="remove-top-title">(Clique no lanche para ver detalhes)</h4>
 <ul>
@@ -17,7 +9,7 @@
 <div *ngIf="snacksSelected != null" class=".w3-container">
   <h2><label>Ingredientes do Lanche:</label> <label style="padding-left: 10px;">{{snacksSelected.name}}</label></h2>
   <ul>
-      <li *ngFor="let ingredient of ingredients">
+      <li *ngFor="let ingredient of snackIngredients">
         <label class="label-name">{{ingredient.name}}:</label>
         <label class="label-info">R$ {{ingredient.price | number : '1.2'}}</label>
       </li>
@@ -43,6 +35,16 @@
         <td style="font-size: 20px;"> <b style="color: red">R$ {{(payment) | number : '1.2'}}</b></td>
       </tr>
     </table>
+  </div>
+
+  <div *ngIf="snackIsSale" style="margin-left: 10px">
+      <h3>Promoções disponíveis</h3>
+      <ul>
+          <li *ngFor="let sale of sales">
+            <label class="label-name">Nome: <b>{{sale.name}}</b></label>
+            <label class="label-info">Descrição: {{sale.description}}</label>
+          </li>
+      </ul>
   </div>
 </div>
 
