@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration>
+	
+    <Properties>
+        <Property name="logFileName">../logs/SellingSnack.log</Property>
+        <Property name="pattern">[#|%d{yyyy-MM-dd HH:mm:ss,SSS}|%-5p|%c|(ThreadId: %t)|%msg|#]%n</Property>        
+        <property name="charsetEncoding">UTF-8</property>
+    </Properties>
+
+    <Appenders>
+        <RollingFile name="application" fileName="${logFileName}" 
+            append="true" filePattern="${logFileName}.%i">
+            <PatternLayout>
+                <pattern>${pattern}</pattern>
+                <charset>${charsetEncoding}</charset>
+            </PatternLayout>
+
+            <Policies>
+                <SizeBasedTriggeringPolicy size="10 MB" />
+            </Policies>
+
+            <DefaultRolloverStrategy max="30" />
+        </RollingFile>
+
+        <Console name="STDOUT" target="SYSTEM_OUT">
+            <PatternLayout>
+                <pattern>${pattern}</pattern>
+            </PatternLayout>
+        </Console>
+    </Appenders>
+
+    <Loggers>
+        <Logger name="com.br.fff" level="DEBUG" />
+
+        <Root level="DEBUG">
+            <appender-ref ref="STDOUT" />
+            <appender-ref ref="application" />
+        </Root>
+    </Loggers>
+</Configuration>
+

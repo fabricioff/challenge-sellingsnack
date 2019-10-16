@@ -13,6 +13,11 @@
   cursor: pointer;
 }
 
+.label-quantity {
+  display:inline-table;
+  padding-right: 15px;
+}
+
 .label-name {
   display:block;
 }
@@ -22,5 +27,8 @@
   padding-bottom: 10px;
 }
 
+table {
+  width: 100%;
+}
 
 

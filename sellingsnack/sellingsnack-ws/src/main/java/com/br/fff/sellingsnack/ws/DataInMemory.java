@@ -5,7 +5,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
-import com.br.fff.sellingsnack.model.Condition;
+import com.br.fff.sellingsnack.model.Item;
 import com.br.fff.sellingsnack.model.Ingredient;
 import com.br.fff.sellingsnack.model.Sale;
 import com.br.fff.sellingsnack.model.Snack;
@@ -41,8 +41,8 @@ public class DataInMemory {
 		
 		Sale ligth = new Sale.Builder().id(1).name("Ligth")
 				.description("Se o lanche tem alface e não tem bacon, ganha 10% de desconto")
-				.addCondition(new Condition(alface, 1))
-				.addCondition(new Condition(bacon, 0))
+				.addCondition(new Item(alface, 1))
+				.addCondition(new Item(bacon, 0))
 				.deduction(0.1f)
 				.typeDeduction(TypeDeduction.SNACK)
 				.build();
@@ -50,7 +50,7 @@ public class DataInMemory {
 		
 		Sale muchMeat = new Sale.Builder().id(2).name("Muita carne")
 				.description("A cada 3 porções de carne o cliente só paga 2. Se o lanche tiver 6 porções, ocliente pagará 4. Assim por diante")
-				.addCondition(new Condition(hamburgerCarne, 3))
+				.addCondition(new Item(hamburgerCarne, 3))
 				.deduction(0.3335f)
 				.typeDeduction(TypeDeduction.INGREDIENT)
 				.build();
@@ -58,68 +58,60 @@ public class DataInMemory {
 		
 		Sale muchCheese = new Sale.Builder().id(3).name("Muito queijo")
 				.description("A cada 3 porções de queijo o cliente só paga 2. Se o lanche tiver 6 porções, ocliente pagará 4. Assim por diante")
-				.addCondition(new Condition(queijo, 3))
+				.addCondition(new Item(queijo, 3))
 				.deduction(0.3335f)
 				.typeDeduction(TypeDeduction.INGREDIENT)
 				.build();
 		SALES.add(muchCheese);
 
-		Snack xBacon = new Snack();
-		xBacon.setId(1);
-		xBacon.setName("X-Bacon");
-		xBacon.getIngredients().add(bacon);
-		xBacon.getIngredients().add(hamburgerCarne);
-		xBacon.getIngredients().add(queijo);
+		Snack xBacon = new Snack.Builder().id(1).name("X-Bacon")
+				.addIngredient(new Item(bacon, 1))
+				.addIngredient(new Item(hamburgerCarne, 1))
+				.addIngredient(new Item(queijo, 1))
+				.build();
 		SNACKS_BY_ID.put(xBacon.getId(), xBacon);
 		SNACKS_BY_NAME.put(xBacon.getName(), xBacon);
 
-		Snack xBurger = new Snack();
-		xBurger.setId(2);
-		xBurger.setName("X-Burger");
-		xBurger.getIngredients().add(hamburgerCarne);
-		xBurger.getIngredients().add(queijo);
+		Snack xBurger = new Snack.Builder().id(2).name("X-Burger")
+				.addIngredient(new Item(hamburgerCarne, 1))
+				.addIngredient(new Item(queijo, 1))
+				.build();
 		SNACKS_BY_ID.put(xBurger.getId(), xBurger);
 		SNACKS_BY_NAME.put(xBurger.getName(), xBurger);
 
-		Snack xEgg = new Snack();
-		xEgg.setId(3);
-		xEgg.setName("X-Egg");
-		xEgg.getIngredients().add(ovo);
-		xEgg.getIngredients().add(hamburgerCarne);
-		xEgg.getIngredients().add(queijo);
+		Snack xEgg = new Snack.Builder().id(3).name("X-Egg")
+				.addIngredient(new Item(ovo, 1))
+				.addIngredient(new Item(hamburgerCarne, 1))
+				.addIngredient(new Item(queijo, 1))
+				.build();
 		SNACKS_BY_ID.put(xEgg.getId(), xEgg);
 		SNACKS_BY_NAME.put(xEgg.getName(), xEgg);
 
-		Snack xEggBacon = new Snack();
-		xEggBacon.setId(4);
-		xEggBacon.setName("X-Egg Bacon");
-		xEggBacon.getIngredients().add(ovo);
-		xEggBacon.getIngredients().add(bacon);
-		xEggBacon.getIngredients().add(hamburgerCarne);
-		xEggBacon.getIngredients().add(queijo);
+		Snack xEggBacon = new Snack.Builder().id(4).name("X-Egg Bacon")
+				.addIngredient(new Item(ovo, 1))
+				.addIngredient(new Item(bacon, 1))
+				.addIngredient(new Item(hamburgerCarne, 1))
+				.addIngredient(new Item(queijo, 1))
+				.build();
 		SNACKS_BY_ID.put(xEggBacon.getId(), xEggBacon);
 		SNACKS_BY_NAME.put(xEggBacon.getName(), xEggBacon);
 		
 		
-		Snack xMuchMeat = new Snack();
-		xMuchMeat.setId(5);
-		xMuchMeat.setName("X-Carnivoro");
-		xMuchMeat.getIngredients().add(ovo);
-		xMuchMeat.getIngredients().add(bacon);
-		xMuchMeat.getIngredients().add(hamburgerCarne);
-		xMuchMeat.getIngredients().add(hamburgerCarne);
-		xMuchMeat.getIngredients().add(hamburgerCarne);
-		xMuchMeat.getIngredients().add(queijo);
-		SNACKS_BY_ID.put(xMuchMeat.getId(), xMuchMeat);
-		SNACKS_BY_NAME.put(xMuchMeat.getName(), xMuchMeat);
+		Snack xCarnivoro = new Snack.Builder().id(5).name("X-Carnivoro")
+				.addIngredient(new Item(ovo, 1))
+				.addIngredient(new Item(bacon, 1))
+				.addIngredient(new Item(hamburgerCarne, 3))
+				.addIngredient(new Item(queijo, 1))
+				.build();
+		SNACKS_BY_ID.put(xCarnivoro.getId(), xCarnivoro);
+		SNACKS_BY_NAME.put(xCarnivoro.getName(), xCarnivoro);
 		
-		Snack xLigth = new Snack();
-		xLigth.setId(5);
-		xLigth.setName("X-Salada");
-		xLigth.getIngredients().add(alface);
-		xLigth.getIngredients().add(hamburgerCarne);
-		xLigth.getIngredients().add(queijo);
-		SNACKS_BY_ID.put(xLigth.getId(), xLigth);
-		SNACKS_BY_NAME.put(xLigth.getName(), xLigth);
+		Snack xSalada = new Snack.Builder().id(5).name("X-Salada")
+				.addIngredient(new Item(alface, 1))
+				.addIngredient(new Item(hamburgerCarne, 1))
+				.addIngredient(new Item(queijo, 1))
+				.build();
+		SNACKS_BY_ID.put(xSalada.getId(), xSalada);
+		SNACKS_BY_NAME.put(xSalada.getName(), xSalada);
 	}
 }

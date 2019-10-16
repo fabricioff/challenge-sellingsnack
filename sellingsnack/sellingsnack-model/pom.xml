@@ -11,9 +11,7 @@
 		<version>1.0</version>
 	</parent>
 
-	<groupId>com.br.fff</groupId>
 	<artifactId>sellingsnack-model</artifactId>
-	<version>1.0</version>
 	<name>sellingsnack-model</name>
 	<url>http://maven.apache.org</url>
 

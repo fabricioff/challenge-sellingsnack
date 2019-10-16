@@ -1,0 +1,98 @@
+  <!-- ADICIONA INGREDIENTES -->
+  <div class="add-ingredient-container">
+    <!-- <label>Ingrediente Selecionado: {{ingredientSelected}}</label><br /> -->
+    <mat-form-field style="padding-right: 10px;">
+      <mat-select placeholder="Selecione o ingrediente" [(ngModel)]="ingredientSelected">
+        <mat-option *ngFor="let ing of allIngredients" [value]="ing" >
+          {{ing.name}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+    <mat-form-field style="padding-right: 10px;">
+      <mat-label>Informe a quantidade</mat-label>
+      <input matInput type="number" [(ngModel)]="quantitySelected" style="text-align: center;" >
+    </mat-form-field>
+    <button mat-raised-button (click)="addItemToSnack()">Adicionar</button>
+  </div>
+
+  <table mat-table [dataSource]='snackIngredients' class="mat-elevation-z8">
+    <!-- QUANTIDADE Column -->
+    <ng-container matColumnDef="quantity">
+      <th mat-header-cell *matHeaderCellDef style="text-align: center;"> <b>QUANTIDADE</b> </th>
+      <td mat-cell *matCellDef="let item" style="text-align: center;"> {{item.quantity}} </td>
+
+      <td mat-footer-cell *matFooterCellDef> <b>TOTAL FINAL</b> </td>
+    </ng-container>
+
+    <!-- LANCHE Column -->
+    <ng-container matColumnDef="snack">
+      <th mat-header-cell *matHeaderCellDef style="text-align: center;"> <b>LANCHE</b> </th>
+      <td mat-cell *matCellDef="let item" style="text-align: center; padding-right: 20px;"> {{item.ingredient.name}} </td>
+      <td mat-footer-cell *matFooterCellDef></td>
+    </ng-container>
+
+    <!-- VALOR UNITÁRIO Column -->
+    <ng-container matColumnDef="price">
+      <th mat-header-cell *matHeaderCellDef style="text-align: center; padding-right: 10px;"> <b>VALOR UNITÁRIO</b> </th>
+      <td mat-cell *matCellDef="let item" style="text-align: center"> {{item.ingredient.price | number : '1.2-2'}} </td>
+      <td mat-footer-cell *matFooterCellDef></td>
+    </ng-container>
+
+    <!-- VALOR TOTAL Column -->
+    <ng-container matColumnDef="priceQuantity">
+      <th mat-header-cell *matHeaderCellDef style="text-align: center;"> <b>VALOR TOTAL</b> </th>
+      <td mat-cell *matCellDef="let item" style="text-align: center;"> {{(item.ingredient.price * item.quantity) | number : '1.2-2'}} </td>
+      <td mat-footer-cell *matFooterCellDef style="text-align: center;"> <b style="color: red">R$ {{payment | number : '1.2-2'}}</b> </td>
+    </ng-container>
+
+    <!-- AÇÃO Column -->
+    <ng-container matColumnDef="actions">
+        <th mat-header-cell *matHeaderCellDef style="text-align: center;"></th>
+        <td mat-cell *matCellDef="let item" style="text-align: center;"> <button mat-button color="primary" (click)="onRemove(item)">Remover</button> </td>
+        <td mat-footer-cell *matFooterCellDef></td>
+    </ng-container>
+
+    <!-- sale Description Column -->
+    <ng-container matColumnDef="sale-description">
+      <th mat-header-cell *matHeaderCellDef colspan="3">DESCONTO DA PROMOÇÃO: <b style="padding-left: 10px;">{{saleNameFound}}</b></th>
+    </ng-container>
+
+    <!-- sale Deduction Column -->
+    <ng-container matColumnDef="sale-deduction">
+      <th mat-header-cell *matHeaderCellDef style="text-align: center"> <b style="color: red">{{deductionSnack | number : '1.2-2'}}</b> </th>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="['sale-description', 'sale-deduction']"class="sale-header-row" ></tr>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    <tr mat-footer-row *matFooterRowDef="displayedColumns"></tr>
+  </table>
+
+
+
+  ===[ EXEMPLO CODE ]=============================================
+  <label>Ingrediente Selecionado: {{ingredientSelected.name}}</label><br />
+    <select placeholder="Selecione o ingrediente" [(ngModel)]="ingredientSelected">
+      <option *ngFor="let ing of allIngredients" [value]="ing">{{ing.name}}</option>
+    </select>
+    <label>Informe a quantidade</label>
+    <input type="number" [(ngModel)]="quantitySelected"  >
+    <button (click)="addItemToSnack()">Adicionar</button>
+
+  <table>
+    <tr>
+        <th><b>QUANTIDADE</b></th>
+        <th><b>LANCHE</b></th>
+        <th><b>VALOR UNITÁRIO</b></th>
+        <th><b>VALOR TOTAL</b></th>
+        <th><b>AÇÕES</b></th>
+    </tr>
+    <tr *ngFor='let item of snackIngredients; let id = index'>
+      <td>{{item.quantity}}</td>
+      <td>{{item.ingredient.name}}</td>
+      <td>{{item.ingredient.price | number : '1.2-2'}}</td>
+      <td>{{(item.ingredient.price * item.quantity) | number : '1.2-2'}}</td>
+      <td><button type="button" mdbBtn color="primary" rounded="true" (click)="onRemove(item)">Remover</button></td>
+    </tr>
+  </table>

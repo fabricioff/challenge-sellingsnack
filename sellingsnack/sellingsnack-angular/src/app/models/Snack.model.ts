@@ -1,28 +1,23 @@
 import { Ingredient } from './Ingredient.model';
+import { Item } from './Item.model';
 
 export class Snack  {
     id: number;
     name: string;
-    ingredients: Array<Ingredient> = new Array<Ingredient>();
+    ingredients: Array<Item> = new Array<Item>();
 
-    constructor(id: number, name: string, ingredients: Array<Ingredient>) {
+    constructor(id: number, name: string, ingredients: Array<Item>) {
         this.id = id;
         this.name = name;
         this.ingredients = ingredients;
     }
 
     static parse(data) {
-        console.log('Snack Parsing....');
-        const ingredientList: Array<Ingredient> = new Array<Ingredient>();
-
-        console.log(data);
-
-        data.ingredients.forEach((i: any) => {
-            const ingredient: Ingredient = Ingredient.parse(i);
-            console.log(ingredient);
-            ingredientList.push(ingredient);
+        const ingredientList: Array<Item> = new Array<Item>();
+        data.ingredients.forEach((i) => {
+            const item: Item = Item.parse(i);
+            ingredientList.push(item);
         });
-
         return new Snack(data.id, data.name, ingredientList);
     }
 }

@@ -1,0 +1,63 @@
+<div id="card-table" class="card">
+  <h3 class="card-header text-center font-weight-bold text-uppercase py-4">{{snack.name}}</h3>
+  <div class="card-body">
+    <div id="table" class="table-editable">
+      <span class="table-add float-right mb-3 mr-2">
+        <div class="container">
+          <div class="row">
+            <div class="col-sm">
+              <label class="text-right"> Selecione o ingrediente:</label>
+            </div>
+            <div class="col-sm">
+              <select [(ngModel)]="ingredientNameSelected">
+                <option *ngFor="let ingredient of listIngredients" [value]="ingredient.name">{{ingredient.name}}</option>
+              </select>
+            </div>
+            <div class="col-sm">
+              <label class="text-right">Informe a quantidade:</label>
+            </div>
+            <div class="col-sm">
+              <input type="number" [(ngModel)]="quantitySelected"  >
+            </div>
+            <div class="col-sm">
+              <button type="button" class="btn btn-outline-primary btn-sm" (click)="addItemToSnack()">Adicionar</button>
+            </div>
+          </div>
+        </div>
+      </span>
+      <table class="table table-bordered table-responsive-md table-striped text-center">
+        <tr>
+            <th class="text-center">Quantidade</th>
+            <th class="text-center">Item</th>
+            <th class="text-center">Valor Unitário</th>
+            <th class="text-center">Valor Total</th>
+            <th class="text-center"></th>
+        </tr>
+        <tr *ngFor="let item of snack.ingredients; let id = index">
+          <td>{{item.quantity}}</td>
+          <td>{{item.ingredient.name}}</td>
+          <td>{{item.ingredient.price  | number : '1.2-2'}}</td>
+          <td>{{(item.ingredient.price * item.quantity)  | number : '1.2-2'}}</td>
+          <td><button type="button" class="btn btn-outline-danger btn-sm" (click)="onRemove(item)">Remover</button></td>
+        </tr>
+        <tr *ngIf="saleFound != null">
+          <td colspan="3" class="text-right">SUB-TOTAL:</td>
+          <td>{{priceSnack | number : '1.2-2'}}</td>
+        </tr>
+        <tr *ngIf="saleFound != null">
+          <td class="text-center">Promoção:</td>
+          <td colspan="2" class="text-left">{{saleFound.name}}</td>
+          <td rowspan="2" class="text-center align-middle">- {{saleFound.deduction | number : '1.2-2'}}</td>
+        </tr>
+        <tr *ngIf="saleFound != null">
+          <td>Descrição:</td>
+          <td colspan="2" class="text-left">{{saleFound.description}}</td>
+        </tr>
+        <tr>
+          <td colspan="3" class="text-right">TOTAL DO LANCHE:</td>
+          <td>{{payment | number : '1.2-2'}}</td>
+        </tr>
+      </table>
+    </div>
+  </div>
+</div>

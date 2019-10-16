@@ -11,9 +11,7 @@
 		<version>1.0</version>
 	</parent>
 
-	<groupId>com.br.fff</groupId>
 	<artifactId>sellingsnack-ws</artifactId>
-	<version>1.0</version>
 	<packaging>war</packaging>
 	<name>sellingsnack-ws</name>
 
@@ -56,18 +54,35 @@
 			<version>${jersey.version}</version>
 			<scope>test</scope>
 		</dependency>
-
-		<!-- <dependency>
-			<groupId>com.owlike</groupId>
-			<artifactId>genson</artifactId>
-			<version>1.6</version>
-		</dependency> -->
-		
+	
+		<!-- JSON -->
 		<dependency>
 			<groupId>com.google.code.gson</groupId>
 			<artifactId>gson</artifactId>
 			<version>${gson.version}</version>
 		</dependency>
+		
+		<!-- Log4j 2 -->
+		<dependency>
+			<groupId>org.apache.logging.log4j</groupId>
+			<artifactId>log4j-api</artifactId>
+			<version>${log4j.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.logging.log4j</groupId>
+			<artifactId>log4j-core</artifactId>
+			<version>${log4j.version}</version>
+		</dependency>
+        <dependency>
+            <groupId>org.apache.logging.log4j</groupId>
+            <artifactId>log4j-jul</artifactId>
+            <version>${log4j.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.logging.log4j</groupId>
+            <artifactId>log4j-slf4j-impl</artifactId>
+            <version>${log4j.version}</version>
+        </dependency>
 
 	</dependencies>
 

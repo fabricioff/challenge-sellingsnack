@@ -10,43 +10,50 @@ public class Snack implements Serializable {
 	
 	private Integer id;
 	private String name;
-	private List<Ingredient> ingredients = new LinkedList<Ingredient>();
+	private List<Item> ingredients = new LinkedList<Item>();
 	
-		
-	public Snack() {
-		super();	
+	private Snack(Builder builder) {
+		this.id = builder.id;
+		this.name = builder.name;
+		this.ingredients = builder.ingredients;
 	}
-
-	public Snack(Integer id, String name, List<Ingredient> ingredients) {
-		super();
-		this.id = id;
-		this.name = name;
-		this.ingredients = ingredients;
+	
+	public static class Builder {
+		private Integer id;
+		private String name;
+		private List<Item> ingredients = new LinkedList<Item>();
+		
+		public Builder id(Integer id) {
+			this.id = id;
+			return this;
+		}
+		
+		public Builder name(String name) {
+			this.name = name;
+			return this;
+		}
+		
+		public Builder addIngredient(Item ingredient) {
+			this.ingredients.add(ingredient);
+			return this;
+		}
+		
+		public Snack build() {
+			return new Snack(this);
+		}		
 	}
 
 	public Integer getId() {
 		return id;
-	}
-
-	public void setId(Integer id) {
-		this.id = id;
-	}
+	}	
 
 	public String getName() {
 		return name;
-	}
+	}	
 	
-	public void setName(String name) {
-		this.name = name;
-	}
-	
-	public List<Ingredient> getIngredients() {
+	public List<Item> getIngredients() {
 		return ingredients;
-	}
-	
-	public void setIngredients(List<Ingredient> ingredients) {
-		this.ingredients = ingredients;
-	}
+	}	
 
 	@Override
 	public int hashCode() {

@@ -1,4 +1,4 @@
-import { SaleCondition } from './SaleCondition.model';
+import { Item } from './Item.model';
 import { TypeDeduction } from './TypeDeduction.model';
 
 export class Sale {
@@ -6,26 +6,23 @@ export class Sale {
     name: string;
     description: string;
     deduction: number;
-    condictions: Array<SaleCondition>;
+    conditions: Array<Item>;
     deductionType: TypeDeduction;
 
     constructor(id: number, name: string, description: string, deduction: number,
-                deductionType: TypeDeduction, condictions: Array<SaleCondition>) {
+                deductionType: TypeDeduction, conditions: Array<Item>) {
         this.id = id;
         this.name = name;
         this.description = description;
         this.deduction = deduction;
-        this.condictions = condictions;
+        this.conditions = conditions;
         this.deductionType = deductionType;
     }
 
     static parse(data) {
-        console.log('Sale Parsing....');
-        const conditionList: Array<SaleCondition> = new Array<SaleCondition>();
-
+        const conditionList: Array<Item> = new Array<Item>();
         data.conditions.forEach((c: any) => {
-            const condition: SaleCondition = SaleCondition.parse(c);
-            console.log(condition);
+            const condition: Item = Item.parse(c);
             conditionList.push(condition);
         });
 

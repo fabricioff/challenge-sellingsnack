@@ -20,7 +20,7 @@ public class Sale implements Serializable {
 	private Integer id;
 	private String name;
 	private String description;
-	private List<Condition> conditions = new LinkedList<Condition>();
+	private List<Item> conditions = new LinkedList<Item>();
 	private Float deduction;
 	private TypeDeduction typeDeduction;
 
@@ -37,7 +37,7 @@ public class Sale implements Serializable {
 		private Integer id;
 		private String name;
 		private String description;
-		private List<Condition> conditions = new LinkedList<Condition>();
+		private List<Item> conditions = new LinkedList<Item>();
 		private Float deduction;
 		private TypeDeduction typeDeduction;
 
@@ -56,7 +56,7 @@ public class Sale implements Serializable {
 			return this;
 		}
 
-		public Builder addCondition(Condition condition) {
+		public Builder addCondition(Item condition) {
 			this.conditions.add(condition);
 			return this;
 		}
@@ -88,7 +88,7 @@ public class Sale implements Serializable {
 		return description;
 	}
 
-	public List<Condition> getConditions() {
+	public List<Item> getConditions() {
 		return conditions;
 	}
 

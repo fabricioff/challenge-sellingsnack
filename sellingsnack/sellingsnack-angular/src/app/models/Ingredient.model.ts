@@ -12,9 +12,6 @@ export class Ingredient {
     }
 
     static parse(data) {
-        console.log('Ingredient Parsing....');
-        console.log(data);
-
         return new Ingredient(data.id, data.name, data.price);
     }
 
